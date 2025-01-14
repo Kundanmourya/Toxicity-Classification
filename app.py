@@ -25,6 +25,9 @@ def toxicity_prediction(text):
 # Set up the page title and layout
 st.set_page_config(page_title="Toxicity Detection App", layout="centered")
 
+if "start_clicked" not in st.session_state:
+    st.session_state.start_clicked = False
+
 st.markdown(
     """
     <style>
@@ -56,7 +59,13 @@ st.markdown(
 st.title("Toxicity Detection")
 
 # Main interaction flow
-if st.button("Start"):
+if not st.session_state.start_clicked:
+    if st.button("Start"):
+        st.session_state.start_clicked = True
+        st.rerun()  
+
+else:
+    # Once "Start" is clicked, show text input and analyze button
     st.subheader("Enter your text for toxicity analysis:")
     text_input = st.text_input("Text Input")
 
@@ -67,3 +76,4 @@ if st.button("Start"):
             st.info(f"The result is: {result}.")
     else:
         st.write("Please input some text for analysis.")
+
