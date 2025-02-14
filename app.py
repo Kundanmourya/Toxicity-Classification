@@ -1,10 +1,8 @@
 import streamlit as st
 import pickle
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.naive_bayes import MultinomialNB
+# from sklearn.feature_extraction.text import TfidfVectorizer
 
-# Load the TF-IDF and model from pickle
 def load_tfidf():
     tfidf = pickle.load(open("tf_idf.pkt", "rb"))
     return tfidf
@@ -13,19 +11,23 @@ def load_model():
     nb_model = pickle.load(open("toxicity_model.pkt", "rb"))
     return nb_model
 
-# Predict toxicity of the input text
-def toxicity_prediction(text):
-    tfidf = load_tfidf()
+tfidf = load_tfidf()
+nb_model = load_model()
+
+def toxicity_prediction(text):    
     text_tfidf = tfidf.transform([text]).toarray()
-    nb_model = load_model()
     prediction = nb_model.predict(text_tfidf)
     class_name = "Toxic" if prediction == 1 else "Non-Toxic"
     return class_name
+<<<<<<< Updated upstream
     
 #st.title("Health Check Page")
 #st.write("App is running smoothly!"
              
 # Set up the page title and layout
+=======
+
+>>>>>>> Stashed changes
 st.set_page_config(page_title="Toxicity Detection App", layout="centered")
 
 if "start_clicked" not in st.session_state:
@@ -58,17 +60,14 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True)
 
-# Page Title
 st.title("Toxicity Detection")
 
-# Main interaction flow
 if not st.session_state.start_clicked:
     if st.button("Start"):
         st.session_state.start_clicked = True
         st.rerun()  
 
 else:
-    # Once "Start" is clicked, show text input and analyze button
     st.subheader("Enter your text for toxicity analysis:")
     text_input = st.text_input("Text Input")
 
