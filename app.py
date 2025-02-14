@@ -21,7 +21,10 @@ def toxicity_prediction(text):
     prediction = nb_model.predict(text_tfidf)
     class_name = "Toxic" if prediction == 1 else "Non-Toxic"
     return class_name
-
+    
+st.title("Health Check Page")
+st.write("App is running smoothly!"
+             
 # Set up the page title and layout
 st.set_page_config(page_title="Toxicity Detection App", layout="centered")
 
